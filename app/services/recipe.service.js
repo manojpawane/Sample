@@ -1,24 +1,29 @@
 const { findByIdAndUpdate, findOneAndUpdate } = require('../model/recipe.model.js')
 const Recipe = require('../model/recipe.model.js')
 
+
 exports.createRecipe = async function (req, res) {
+    
     var recipeExists = await Recipe.findOne({
         name: req.body.name
     })
-    if (recipe) {
+    if (recipeExists) {
         res.status(400).send({
             message: 'Recipe Name already exists, please try with different name. '
         })
     }
     else {
+    
+        var imageUrl ='file:///E:/Projects/Sample/' + req.file.path 
+        console.log(imageUrl);
         let recipe = new Recipe({
-            name: req.body.name,
-            image: req.body.imageurl,
-            description: req.body.description,
-            calories: req.body.calories,
-            ingredient: req.body.ingredient
+          name: req.body.name,
+          imageUrl :imageUrl,
+          description: req.body.description,
+          calories: req.body.calories,
+          ingredient: req.body.ingredient              
         })
-
+        
         let recipeCreated = await Recipe.create(recipe)
         res.status(200).send(recipeCreated)
     }
@@ -49,3 +54,6 @@ exports.get = async function (req, res) {
 exports.delete = async function (req, res) {
     await Recipe.findByIdAndDelete(req.params.id)
 }
+
+
+

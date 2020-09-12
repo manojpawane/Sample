@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const RecipeSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        //required: true
     },
 
     imageUrl: {

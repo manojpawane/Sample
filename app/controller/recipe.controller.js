@@ -1,15 +1,21 @@
 const recipeService = require('../services/recipe.service')
 exports.create = function (req, res) {
+    // req.assert("name", "Name should not be empty").notEmpty();
+    // req.assert("calories", "Calories should be in numeric.").isNumeric()
+    // var error = req.validationErrors();
+    // if (error) {
+    //     return res.status(400).send(error);
+    // }
+    recipeService.createRecipe(req, res);
+}
+
+exports.update = function (req, res) {
     req.assert("name", "Name should not be empty").notEmpty();
     req.assert("calories", "Calories should be in numeric.").isNumeric()
     var error = req.validationErrors();
     if (error) {
         return res.status(400).send(error);
     }
-    recipeService.createRecipe(req, res);
-}
-
-exports.update = function (req, res) {
     recipeService.update(req, res);
 }
 
